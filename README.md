@@ -4,7 +4,7 @@
 
 ## Wiki
 
-The project's wiki can be found [here](asdf). It provides more in-depth information about the project, its status, and how to replicate the results.
+The project's wiki can be found [here](https://git.sbg.ac.at/s1093093/dmig/-/wikis/DMIG-Wiki). It provides more in-depth information about the project, its status, and how to replicate the results.
 
 ## License
 
