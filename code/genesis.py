@@ -1,7 +1,9 @@
-# API description: https://www-genesis.destatis.de/genesis/online?Menu=Webservice
-
 import requests
 
+# Set year for which to download domestic migration data
+year = "2022"
+
+# API description: https://www-genesis.destatis.de/genesis/online?Menu=Webservice
 # Base URL of the API
 api_url = "https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
 
@@ -13,8 +15,8 @@ params = {
     "area": "all",
     "compress": "false",
     "transpose": "false",
-    "startyear": "2022",
-    "endyear": "2022",
+    "startyear": year,
+    "endyear": year,
     "timeslices": "",
     "regionalvariable": "",
     "regionalkey": "",
@@ -36,7 +38,7 @@ response = requests.get(api_url, params=params)
 # Check if the request was successful
 if response.ok:
     # Define filename for downloaded file
-    filename = "dmig2022.csv"
+    filename = f"dmig{year}.csv"
 
     # Write response content to file
     with open(filename, 'wb') as file:
