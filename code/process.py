@@ -7,8 +7,11 @@ from sqlalchemy import Integer, create_engine
 #pd.set_option('display.max_rows', None)
 #pd.set_option('display.max_columns', None)
 
+# Set year for which to download domestic migration data
+year = "2022"
+
 # Load CSV as df
-df = pd.read_csv('dmig2022.csv',
+df = pd.read_csv(f'dmig{year}.csv',
                  sep=';',
                  header=None,
                  skiprows=[0, 1, 2, 3, 4, 5, 6, 7, 297, 298, 299],
