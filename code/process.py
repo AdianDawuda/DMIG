@@ -3,12 +3,21 @@ import pandas as pd
 from geoalchemy2 import Geometry
 from shapely.geometry import MultiPolygon, Polygon
 from sqlalchemy import Integer, create_engine
-
+from cred import username, password, host, port, dbname, name, schema
+from parameter import year
 #pd.set_option('display.max_rows', None)
 #pd.set_option('display.max_columns', None)
 
 # Set year for which to download domestic migration data
-year = "2022"
+year = year
+user=username
+password=password
+host=host
+port=port
+dbname=dbname
+name=name
+schema=schema
+
 
 # Load CSV as df
 df = pd.read_csv(f'dmig{year}.csv',
@@ -51,11 +60,17 @@ gdf = gdf.set_geometry('from_geom')
 gdf = gdf.set_crs("epsg:4326", inplace=True)
 
 # Define PostGIS database connection
-engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/dmig")
+#engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/dmig")
+
+engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{dbname}')
+
+print(engine)
+
 # Write gdf to PostGIS database
 gdf.to_postgis(
     con=engine,
     name="dmig2022",
+    schema=schema,
     if_exists="replace",
     dtype={
         'to_geom': Geometry(geometry_type='MULTIPOLYGON', srid=4326),
