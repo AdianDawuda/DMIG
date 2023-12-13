@@ -3,7 +3,7 @@
 from requests import get
 
 # Full GISCO API URL
-url = 'https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_10M_2021_3857_LEVL_1.geojson'
+url = 'https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_10M_2021_4326_LEVL_1.geojson'
 
 # Constructing GET request
 response = get(url)
