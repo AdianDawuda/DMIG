@@ -108,6 +108,7 @@ gdf.to_postgis(
 )
 
 
+
 # Define PostGIS database connection
 engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{dbname}')
 
@@ -116,6 +117,7 @@ try:
 
         query = "ALTER TABLE s1068744.dmig2022 ADD COLUMN id SERIAL PRIMARY KEY;".format(dbname)
         conn.execute(text(query))
+        conn.commit()
 
 except Exception as e:
     print(f"An error occurred: {e}")
