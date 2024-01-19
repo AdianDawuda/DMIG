@@ -5,7 +5,7 @@ abspath = os.path.abspath(__file__)
 dir_name = os.path.dirname(abspath)
 os.chdir(dir_name)
 
-# Define list of scripts in the order to be executed in.
+# Define list of scripts in the order to be executed in
 scripts = ['eurostat.py', 'genesis.py', 'process.py']
 
 # Execute each script in the list

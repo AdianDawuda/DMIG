@@ -1,6 +1,6 @@
 from requests import get
 
-from parameters import year
+from parameters import year, genesis_uname, genesis_passwd
 
 # API description: https://www-genesis.destatis.de/genesis/online?Menu=Webservice
 # Base URL of the API
@@ -8,8 +8,8 @@ api_url = 'https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile'
 
 # Parameters to be sent with the request
 params = {
-    'username': 'DENP664828',
-    'password': 'Password1!!!',
+    'username': f'{genesis_uname}',
+    'password': f'{genesis_passwd}',
     'name': '12711-0022',
     'area': 'all',
     'compress': 'false',

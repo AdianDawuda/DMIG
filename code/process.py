@@ -2,17 +2,8 @@ import geopandas as gpd
 import pandas as pd
 from geoalchemy2 import Geometry
 from shapely.geometry import MultiPolygon, Polygon
-from sqlalchemy import Integer, create_engine
-from sqlalchemy import DDL
-from sqlalchemy import text
-
-import parameters
-
-import geopandas as gpd
-import pandas as pd
-from geoalchemy2 import Geometry
-from shapely.geometry import MultiPolygon, Polygon
 from sqlalchemy import Integer, Float, create_engine
+from sqlalchemy import text
 
 import parameters
 
@@ -23,7 +14,7 @@ password = parameters.password
 host = parameters.host
 port = parameters.port
 dbname = parameters.dbname
-name = parameters.name
+table_name = parameters.table_name
 schema = parameters.schema
 
 # Load CSV as df
@@ -44,9 +35,6 @@ df = df[df['to'] != 'Insgesamt']
 # Remove rows where from==to (no data)
 df = df[df['from'] != df['to']]
 
-
-
-
 # Load GeoJSON as gdf
 gdf = gpd.read_file('NUTS_L1.geojson')
 # Remove irrelevant columns
@@ -62,9 +50,6 @@ geometry_dict = gdf.set_index('NAME_LATN')['geometry'].to_dict()
 df['to_geom'] = df['to'].map(geometry_dict)
 df['from_geom'] = df['from'].map(geometry_dict)
 
-
-
-
 # Calculate centroids and extract x, y coordinates for 'from_geom'
 df['from_geom_centroid'] = df['from_geom'].apply(lambda geom: geom.centroid if geom is not None else None)
 df['from_centroid_x'] = df['from_geom_centroid'].apply(lambda c: c.x if c is not None else None)
@@ -75,9 +60,6 @@ df['to_geom_centroid'] = df['to_geom'].apply(lambda geom: geom.centroid if geom 
 df['to_centroid_x'] = df['to_geom_centroid'].apply(lambda c: c.x if c is not None else None)
 df['to_centroid_y'] = df['to_geom_centroid'].apply(lambda c: c.y if c is not None else None)
 
-
-
-
 # Convert df to gdf
 gdf = gpd.GeoDataFrame(df, geometry='to_geom')
 # Add from_geom as geometry type
@@ -85,15 +67,13 @@ gdf = gdf.set_geometry('from_geom')
 # Set gdf crs
 gdf = gdf.set_crs('epsg:4326', inplace=True)
 
-
 # Define PostGIS database connection
 engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{dbname}')
-print(engine)
 
 # Write gdf to PostGIS database
 gdf.to_postgis(
     con=engine,
-    name='dmig2022',
+    name= table_name,
     schema=schema,
     if_exists='replace',
     dtype={
@@ -107,17 +87,11 @@ gdf.to_postgis(
     }
 )
 
-
-
-# Define PostGIS database connection
-engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{dbname}')
-
+# Add Primary key to table
 try:
     with engine.connect() as conn:
-
-        query = "ALTER TABLE s1068744.dmig2022 ADD COLUMN id SERIAL PRIMARY KEY;".format(dbname)
+        query = f"ALTER TABLE {schema}.dmig{year} ADD COLUMN id SERIAL PRIMARY KEY;".format(dbname)
         conn.execute(text(query))
         conn.commit()
-
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f"Error: {e}")
