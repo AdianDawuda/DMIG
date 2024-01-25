@@ -11,6 +11,7 @@ The project's wiki can be found [here](https://git.sbg.ac.at/s1093093/dmig/-/wik
 ## Authors
 
 Adian Dawuda | adian.dawuda@stud.plus.ac.at
+
 Felix Schachtschneider | felix.schachtschneider@stud.plus.ac.at
 
 ## License

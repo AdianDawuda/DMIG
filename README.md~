@@ -8,6 +8,11 @@ This project aims to build a spatial data infrastructure of yearly German domest
 
 The project's wiki can be found [here](https://git.sbg.ac.at/s1093093/dmig/-/wikis/DMIG-Wiki). It provides more in-depth information about the project, its status, and how to replicate the results.
 
+## Authors
+
+Adian Dawuda | adian.dawuda@stud.plus.ac.at
+Felix Schachtschneider | felix.schachtschneider@stud.plus.ac.at
+
 ## License
 
 See the [LICENSE](https://git.sbg.ac.at/s1093093/dmig/-/blob/main/LICENSE) file for license rights and limitations ([GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)).
