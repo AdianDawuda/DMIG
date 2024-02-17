@@ -2,8 +2,8 @@
 year = '2020'
 
 # Set GENESIS API credentials
-genesis_uname = 'DENP664828'
-genesis_passwd = 'Password1!!!'
+genesis_uname = ''
+genesis_passwd = ''
 
 # Set database connection parameters
 username = 'postgres'
@@ -15,10 +15,10 @@ table_name = f'dmig{year}'
 schema = 'public'
 
 # Z_GIS PostGIS
-# username = 's1093093'
+# username = ''
 # password = ''
-# dbname = 'wt23_856162_sde'
-# host = 'geoserver22s.zgis.at'
+# dbname = ''
+# host = ''
 # port = 5432
 # name = 'dmig2022'
 # schema = 's1093093'
